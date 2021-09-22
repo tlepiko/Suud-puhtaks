@@ -1,0 +1,9 @@
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+
+const firebaseConfig = {
+  //Siia pane oma firebase config
+};
+// eslint-disable-next-line
+const app = initializeApp(firebaseConfig);
+export default getFirestore();
