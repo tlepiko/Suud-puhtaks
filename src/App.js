@@ -111,24 +111,28 @@ function OrganizerView() {
   return (
     <div clas="App">
         {questions.map(question => (
-          <div value={question.id} key={question.id}>{question.question}<button /* onClick={questionAnswer(question.id)} */>Vastatud</button><button /* onClick="questionAnswer({question.id})" */>Hiljem Vastamiseks</button></div>
+          <div id={question.id} value={question.id} key={question.id}>{question.question}<button onClick={questionAnswer(question.id)}>Vastatud</button><button /* onClick="questionAnswer({question.id})" */>Hiljem Vastamiseks</button></div>
         ))}
     </div>
   );
 };
 //Korraldaja vaade lõpp
 
-
-/* function questionAnswer(){ async (event) => {
-  event.preventDefault();
-  var questionId = event.target.parentElement.value;
-  console.log(questionId);
+function questionAnswer(questionId) {
   const questionDocRef = doc(db, "questions", questionId);
-  const questionData = { status: 4 };
+  const questionDocData = { status: 4};
+  updateDoc(questionDocRef, questionDocData);
+  console.log(questionId);
+}
+/* const questionAnswer = async () => {
+  event.preventDefault();
+  console.log("hello");
+  var questionId = event.target.parentElement.value;
+  const questionDocRef = collection(db, "questions", questionId);
+  const questionData = { status: 4};
   await updateDoc(questionDocRef, questionData);
-};
-} */
-/*//Moderaatori vaade algus
+}; */
+//Moderaatori vaade algus
 function ModeratorView() {
 
 }
