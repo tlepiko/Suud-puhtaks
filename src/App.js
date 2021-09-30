@@ -1,7 +1,7 @@
 //Teenuste impordi algus
 import React, { useEffect, useState } from 'react';
 import db from "./firebase";
-import { onSnapshot, collection, orderBy, query, limit, where, addDoc, setDoc, getDoc, serverTimestamp, doc, updateDoc } from "@firebase/firestore";
+import { onSnapshot, collection, orderBy, query, limit, where, addDoc, serverTimestamp, doc, updateDoc } from "@firebase/firestore";
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from "firebase/auth";
 import { useAuthState } from 'react-firebase-hooks/auth';
 //Teenuste impordi lõpp
@@ -22,7 +22,7 @@ function App() {
       </header>
       <section>
         {user ? <OrganizerView /> : <QuestionView />}
-        {/* {user ? <ModeratorView /> : <p>Logi sisse, et modereerida ja vastata küsimustele</p>} */}
+        {user ? <ModeratorView /> : <p>Logi sisse, et modereerida ja vastata küsimustele</p>}
       </section>
     </div>
   );
@@ -101,7 +101,7 @@ function OrganizerView() {
         collection(db, "questions"),
         //erinevad status olekud: 1. posed, 2. readyforanswer, 3. unsuitable, 4. answered, 5. answerlater
         where("status", "==", 2),
-        orderBy("created", "desc"),
+        orderBy("created", "asc"),
         limit(1)),
         (snapshot) =>
           setQuestions(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
@@ -111,32 +111,65 @@ function OrganizerView() {
   return (
     <div clas="App">
         {questions.map(question => (
-          <div id={question.id} value={question.id} key={question.id}>{question.question}<button onClick={questionAnswer(question.id)}>Vastatud</button><button /* onClick="questionAnswer({question.id})" */>Hiljem Vastamiseks</button></div>
+          <div id={question.id} value={question.id} key={question.id}>{question.question}<button onClick={() => questionAnswer(question.id)}>Vastatud</button><button onClick={() => questionAnswerLater(question.id)}>Hiljem vastamiseks</button></div>
         ))}
     </div>
   );
 };
 //Korraldaja vaade lõpp
 
+
+
+//Moderaatori vaade algus
+function ModeratorView() {
+  const [questions, setQuestions] = useState([]);
+  useEffect(
+    () =>
+      onSnapshot(query(
+        collection(db, "questions"),
+        //erinevad status olekud: 1. posed, 2. readyforanswer, 3. unsuitable, 4. answered, 5. answerlater
+        where("status", "==", 1),
+        orderBy("created", "asc"),
+        limit(1)),
+        (snapshot) =>
+          setQuestions(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+      ),
+    []
+  );
+  return (
+    <div clas="App">
+        {questions.map(question => (
+          <div id={question.id} value={question.id} key={question.id}>{question.question}<button onClick={() => questionApprove(question.id)}>Sobilik</button><button onClick={() => questionInappropriate(question.id)}>Mittesobilik</button></div>
+        ))}
+    </div>
+  );
+};
+//Moderaatori vaade lõpp
+
+//Küsimuste haldamine algus
 function questionAnswer(questionId) {
   const questionDocRef = doc(db, "questions", questionId);
   const questionDocData = { status: 4};
   updateDoc(questionDocRef, questionDocData);
-  console.log(questionId);
-}
-/* const questionAnswer = async () => {
-  event.preventDefault();
-  console.log("hello");
-  var questionId = event.target.parentElement.value;
-  const questionDocRef = collection(db, "questions", questionId);
-  const questionData = { status: 4};
-  await updateDoc(questionDocRef, questionData);
-}; */
-//Moderaatori vaade algus
-function ModeratorView() {
+};
 
-}
-//Moderaatori vaade lõpp */
+function questionAnswerLater(questionId) {
+  const questionDocRef = doc(db, "questions", questionId);
+  const questionDocData = { status: 5};
+  updateDoc(questionDocRef, questionDocData);
+};
 
+function questionInappropriate(questionId) {
+  const questionDocRef = doc(db, "questions", questionId);
+  const questionDocData = { status: 3};
+  updateDoc(questionDocRef, questionDocData);
+};
+
+function questionApprove(questionId) {
+  const questionDocRef = doc(db, "questions", questionId);
+  const questionDocData = { status: 2};
+  updateDoc(questionDocRef, questionDocData);
+};
+//Küsimuste haldamine lõpp
 //Export
 export default App;
