@@ -6,18 +6,21 @@ import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from "firebase/
 import { useAuthState } from 'react-firebase-hooks/auth';
 //Teenuste impordi lõpp
 
-//Autentimise konstantid algus
+//Autentimise väärtused algus
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
-//Autentimise konstantid lõpp
+//Autentimise väärtused lõpp
 
 //Pealeht algus
 function App() {
   const [user] = useAuthState(auth);
+  const user2 = auth.currentUser;
+  console.log(user2);
+  console.log(user);
   return (
     <div>
       <header>
-        <h1>Test question</h1>
+        <h1>Suud puhtaks</h1>
         {user ? <SigningOut /> : <SignIn />}
       </header>
       <section>
