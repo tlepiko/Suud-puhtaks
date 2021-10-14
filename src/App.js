@@ -18,10 +18,10 @@ function App() {
       <Router>
         {/* ainult sisselogitud kasutaja näeb seda */}
         <PrivateRoute path="/" exact component={HomePage}></PrivateRoute>
+        <PrivateRoute path="/EventPage" exact component={EventPage}></PrivateRoute>
         
         <Route path="/Login" component={LoginPage}></Route>
         <Route path="/Join" component={JoinEventPage}></Route>
-        <Route path="/EventPage" component={EventPage}></Route>
       </Router>
 
     </div>

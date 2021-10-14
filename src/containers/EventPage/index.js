@@ -29,6 +29,7 @@ export const EventPage = (props) => {
     if(questions.length < 1) {
         return (
             <div>
+                <div><button type="button" onClick={() => signOut()}>Logi välja</button></div>
                 <h1>Siin algab vastamiseks olevate küsimuste ala</h1>
             <p>Hetkel vastamiseks küsimusi pole</p>
             <button type="button" onClick={returnToMain}>Tagasi</button>
@@ -40,6 +41,7 @@ export const EventPage = (props) => {
     return (
         <div>
             <div>Suud puhtaks!</div>
+            <div><button type="button" onClick={() => signOut()}>Logi välja</button></div>
 
 
             <div clas="App">
@@ -111,3 +113,8 @@ function ModeratorView() {
     const questionDocData = { status: 2};
     updateDoc(questionDocRef, questionDocData);
   };
+  
+  function signOut() {
+    localStorage.clear();
+    window.location.reload(false);
+}
