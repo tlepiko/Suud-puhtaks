@@ -29,6 +29,7 @@ export const HomePage = (props) => {
     return (
         <div>
             <div>Suud puhtaks!</div>
+            <div><button type="submit" onClick={() => signOut()}>Logi välja</button></div>
             <Layout>
 
             </Layout>
@@ -66,4 +67,9 @@ function createRoom() {
         name: roomName,
         uid: user
     });
+}
+
+function signOut() {
+    localStorage.clear();
+    window.location.reload(false);
 }
