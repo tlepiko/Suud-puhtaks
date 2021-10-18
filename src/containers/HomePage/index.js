@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import db from "../../firebase";
 import { onSnapshot, query, collection, where, orderBy, limit, addDoc, doc, updateDoc, serverTimestamp, setDoc } from '@firebase/firestore';
 import { getAuth } from '@firebase/auth';
+import { PublicEventPage } from '../PublicEventPage/PublicEventPage';
 const auth = getAuth();
 /**
 * @author
@@ -36,7 +37,7 @@ export const HomePage = (props) => {
 
             <div clas="App">
                 {events.map(event => (
-                    <div id={event.id} value={event.id} key={event.id}>{event.name}<button onClick={() => eventEnter(event.id)}>Sisene</button><button onClick={() => eventRemove(event.id)}>Kustuta üritus</button><button onClick={() => window.alert("Selle ruumi kood on: " + event.id)}>Hangi kood</button></div>
+                    <div id={event.id} value={event.id} key={event.id}>{event.name}<button onClick={() => eventEnter(event.id)}>Sisene</button><button onClick={() => eventDisplay(event.id)}>Avalik vaade</button><button onClick={() => eventRemove(event.id)}>Kustuta üritus</button><button onClick={() => window.alert("Selle ruumi kood on: " + event.id)}>Hangi kood</button></div>
                 ))}
             </div>
             <div>
@@ -52,6 +53,11 @@ function eventEnter(roomCode) {
     localStorage.setItem("roomCode", roomCode);
     window.location="/EventPage";
 };
+
+function eventDisplay(roomCode) {
+    localStorage.setItem("roomCode", roomCode);
+    window.location="/PublicEventPage";
+}
 
 function eventRemove(roomCode) {
     const questionDocRef = doc(db, "events", roomCode);

@@ -6,6 +6,7 @@ import { LoginPage } from './containers/LoginPage/LoginPage';
 import { JoinEventPage } from './containers/JoinEventPage/JoinEventPage';
 import { PrivateRoute } from './components/PrivateRoute';
 import { EventPage } from './containers/EventPage';
+import { PublicEventPage } from './containers/PublicEventPage/PublicEventPage';
 // eslint-disable-next-line
 import db from "./firebase"; 
 //Teenuste impordi lõpp
@@ -19,6 +20,7 @@ function App() {
         {/* ainult sisselogitud kasutaja näeb seda */}
         <PrivateRoute path="/" exact component={HomePage}></PrivateRoute>
         <PrivateRoute path="/EventPage" exact component={EventPage}></PrivateRoute>
+        <PrivateRoute path="/PublicEventPage" exact component={PublicEventPage}></PrivateRoute>
         
         <Route path="/Login" component={LoginPage}></Route>
         <Route path="/Join" component={JoinEventPage}></Route>
