@@ -1,18 +1,16 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { signInWithGoogle } from '../../actions/auth.actions';
-import { Layout } from '../../components/Layout';
-import { Card } from '../../components/Layout/UI/Card';
-import { getAuth } from '@firebase/auth';
 import { Redirect } from 'react-router';
-import { NavLink } from 'react-router-dom';
-const auth = getAuth();
+import db from "../../firebase";
+import { doc, getDoc } from '@firebase/firestore';
+
 /**
 * @author
 * @function LoginPage
 **/
 
-export const LoginPage = (props) => {
+export const LoginPage = () => {
     const dispatch = useDispatch();
     const userLogin = (e) => {
         e.preventDefault();
@@ -22,13 +20,10 @@ export const LoginPage = (props) => {
     if (user) {
         return <Redirect to="/" />
     } else {
-        console.log("No logged in user");
         return (
             <div>
                 <div>Suud puhtaks!</div>
-                <Layout>
                     <div>
-                        <Card>
                             <div>
                                 <button onClick={userLogin}>Logi sisse</button>
                             </div>
@@ -36,9 +31,7 @@ export const LoginPage = (props) => {
                                 Sisesta ruumi kood:<input id="roomCode"></input>
                                 <button type="button" onClick={joinCode}>Liitu üritusega</button>
                             </div>
-                        </Card>
                     </div>
-                </Layout>
             </div>
         )
     }
@@ -46,11 +39,25 @@ export const LoginPage = (props) => {
 
 function joinCode() {
     const roomCode = document.getElementById("roomCode").value;
-    localStorage.setItem('roomCode', roomCode)
-    if (!roomCode) {
-        window.alert("Palun sisesta ürituse kood!");
-    } else {
-        window.location='/Join';
-    }
-
+    localStorage.setItem("roomCode", roomCode);
+    const questionDocRef = doc(db, "events", roomCode);
+    getDoc(questionDocRef)
+    .then(function (doc) {
+        if(doc.exists) {
+            if(doc.data().moderated) {
+                localStorage.setItem("statusCode", 1);
+                window.location="/Join"
+            } else if(!doc.data().moderated) {
+                localStorage.setItem("statusCode", 0);
+                window.location="/Join"
+            } else {
+                window.alert("Palun sisesta kehtiv ürituse kood!");
+            }
+        } else {
+            window.alert("Palun sisesta kehtiv ürituse kood!");
+        }
+    })
+    .catch(error => {
+        window.alert("Palun sisesta kehtiv ürituse kood!");
+    })
 }
