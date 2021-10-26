@@ -7,13 +7,12 @@ import './style.css';
 * @function Header
 **/
 
-export const Header = (props) => {
+export const Header = () => {
     return (
         <header className="header">
                 <ul className="leftMenu">
                     <li><NavLink to={'/Login'}>Logi Sisse</NavLink></li>
                     <li><NavLink to={'/Join'}>Liitu üritusega</NavLink></li>
-                    {/* <li><Link to={'#'} onClick={props.logout}>Logout</Link></li> */}
                 </ul>
         </header>
     )

@@ -10,7 +10,9 @@ export const signInWithGoogle = () => {
             .then((result) => {
                 console.log(result.user.displayName + " logis just sisse!");
                 const loggedIn = result.user.uid;
+                const email = result.user.email;
                 localStorage.setItem('user', loggedIn);
+                localStorage.setItem('email', email);
                 window.location.reload(false);
 
             })
