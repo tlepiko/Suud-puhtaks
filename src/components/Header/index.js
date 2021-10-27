@@ -7,6 +7,7 @@ import './style.css';
 * @function Header
 **/
 
+//Header rakendusele, hetkel pole kasutuses
 export const Header = () => {
     return (
         <header className="header">

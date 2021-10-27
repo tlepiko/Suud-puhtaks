@@ -1,13 +1,15 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import db from "../../firebase";
-import { onSnapshot, query, getDoc, collection, where, orderBy, limit, addDoc, doc, updateDoc, serverTimestamp } from '@firebase/firestore';
+import { eventDisplay, eventRemove, displayArchive, assignModerator, eventModeration, createRoom, signOut, eventEnter } from '../../actions/functions';
+import { onSnapshot, query, collection, where, orderBy, limit } from '@firebase/firestore';
 /**
 * @author
 * @function HomePage
 **/
 
-export const HomePage = (props) => {
+//Sisselogitud kasutaja avaleht, kus kuvatakse kõik kasutaja poolt loodud üritused
+export const HomePage = () => {
     const [events, setEvents] = useState([]);
     const user = localStorage.getItem('user');
     useEffect(
@@ -27,6 +29,7 @@ export const HomePage = (props) => {
         <div>
             <div>Suud puhtaks!</div>
             <div><button type="submit" onClick={() => signOut()}>Logi välja</button></div>
+            <a href="/ModeratorPage">Vaata üritusi, kus oled määratud moderaatoriks</a>
             <div clas="App">
                 <h1>Sinu loodud üritused</h1>
                 {events.map(event => (
@@ -46,72 +49,4 @@ export const HomePage = (props) => {
         </div>
 
     )
-}
-
-const eventEnter = (roomCode) => {
-    /* localStorage.clear("roomCode"); */
-    localStorage.setItem("roomCode", roomCode);
-    const questionDocRef = doc(db, "events", roomCode);
-    getDoc(questionDocRef)
-    .then(function (doc) {
-        if(doc.exists) {
-            if(doc.data().moderated) {
-                localStorage.setItem("statusCode", 1);
-                window.location="/EventPage"
-            } else {
-                localStorage.setItem("statusCode", 0);
-                window.location="/EventPage"
-            }
-        }
-    }
-    )        
-};
-
-async function eventModeration(roomCode) {
-    const questionDocRef = doc(db, "events", roomCode);
-    await getDoc(questionDocRef)
-    .then(function (doc) {
-        if(doc.exists) {
-            const questionDocData = { moderated: !doc.data().moderated };
-            updateDoc(questionDocRef, questionDocData);
-        }
-    })
-}
-
-function eventDisplay(roomCode) {
-    localStorage.setItem("roomCode", roomCode);
-    window.location="/PublicEventPage";
-}
-
-function eventRemove(roomCode) {
-    const questionDocRef = doc(db, "events", roomCode);
-    const questionDocData = { uid: 1 };
-    updateDoc(questionDocRef, questionDocData);
-};
-
-function createRoom() {
-    const user = localStorage.getItem('user');
-    const roomName = document.getElementById("roomName").value;
-    addDoc(collection(db, "events"), {
-        created: serverTimestamp(),
-        name: roomName,
-        uid: user
-    });
-}
-
-function assignModerator(roomCode) {
-    const questionDocRef = doc(db, "events", roomCode);
-    var moderatorEmail = prompt("Palun sisesta moderaatori meili aadress", "");
-    const questionDocData = { moderator: moderatorEmail };
-    updateDoc(questionDocRef, questionDocData);
-}
-
-function displayArchive(roomCode) {
-    localStorage.setItem("roomCode", roomCode);
-    window.location="/Archive";
-}
-
-function signOut() {
-    localStorage.clear();
-    window.location.reload(false);
 }

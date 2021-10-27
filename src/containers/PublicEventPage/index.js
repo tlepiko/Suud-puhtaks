@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { onSnapshot, query, collection, where, orderBy, limit } from '@firebase/firestore';
 import db from "../../firebase";
+import { returnToMain } from '../../actions/functions';
 /**
 * @author
 * @function PublicEventPage
@@ -27,7 +28,8 @@ export const PublicEventPage = () => {
     if(questions[0] !== undefined) {
         return (
             <div>
-                <div>Suud puhtaks!</div>    
+                <div>Suud puhtaks!</div>
+                <button type="button" onClick={returnToMain}>Tagasi</button>    
                 <div clas="App">
                     {questions.map(question => (
                         <div id={question.id} value={question.id} key={question.id}>{question.question}</div>
@@ -45,7 +47,3 @@ export const PublicEventPage = () => {
 
 
 }
-
-/* function returnToMain() {
-    window.location="/Login";
-} */

@@ -1,9 +1,9 @@
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "@firebase/auth";
-// eslint-disable-next-line
 
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
 
+//Google kontoga sisselogimise funktsioon
 export const signInWithGoogle = () => {
     return async () => {
         signInWithPopup(auth, provider)

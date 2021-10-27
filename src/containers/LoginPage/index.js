@@ -2,14 +2,14 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { signInWithGoogle } from '../../actions/auth.actions';
 import { Redirect } from 'react-router';
-import db from "../../firebase";
-import { doc, getDoc } from '@firebase/firestore';
+import { joinCode } from '../../actions/functions';
 
 /**
 * @author
 * @function LoginPage
 **/
 
+//Lehe külalisele, mitte sisselogitud kasutajale, avavaade, kus on võimalus sisse logida ja üritusega liituda.
 export const LoginPage = () => {
     const dispatch = useDispatch();
     const userLogin = (e) => {
@@ -35,29 +35,4 @@ export const LoginPage = () => {
             </div>
         )
     }
-}
-
-function joinCode() {
-    const roomCode = document.getElementById("roomCode").value;
-    localStorage.setItem("roomCode", roomCode);
-    const questionDocRef = doc(db, "events", roomCode);
-    getDoc(questionDocRef)
-    .then(function (doc) {
-        if(doc.exists) {
-            if(doc.data().moderated) {
-                localStorage.setItem("statusCode", 1);
-                window.location="/Join"
-            } else if(!doc.data().moderated) {
-                localStorage.setItem("statusCode", 0);
-                window.location="/Join"
-            } else {
-                window.alert("Palun sisesta kehtiv ürituse kood!");
-            }
-        } else {
-            window.alert("Palun sisesta kehtiv ürituse kood!");
-        }
-    })
-    .catch(error => {
-        window.alert("Palun sisesta kehtiv ürituse kood!");
-    })
 }
