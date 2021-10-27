@@ -1,12 +1,14 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import db from "../../firebase";
-import { onSnapshot, query, collection, where, orderBy, doc, getDoc } from '@firebase/firestore';
+import { onSnapshot, query, collection, where, orderBy } from '@firebase/firestore';
+import { returnToMain, signOut, enterModeration } from '../../actions/functions';
 /**
 * @author
 * @function ModeratorPage
 **/
 
+//Moderaatori vaaade sisselogitud kasutajale, kus kuvatakse kõik üritused mille moderaatoriks kasutaja on.
 export const ModeratorPage = () => {
     const [moderatedRooms, setModeratedRooms] = useState([]);
     const email = localStorage.getItem("email");
@@ -26,8 +28,8 @@ export const ModeratorPage = () => {
         return (
             <div>
                 <div><button type="button" onClick={() => signOut()}>Logi välja</button></div>
-                <h1>Siin algab modereerimiseks olevate küsimuste ala</h1>
-                <p>Hetkel vastamiseks küsimusi pole</p>
+                <h1>Siin on üritused, kus oled moderaatoriks määratud</h1>
+                <p>Sind pole kuskil moderaatoriks määratud</p>
                 <button type="button" onClick={returnToMain}>Tagasi</button>
                 
             </div>
@@ -39,7 +41,7 @@ export const ModeratorPage = () => {
             <div><button type="button" onClick={() => signOut()}>Logi välja</button></div>
             <div clas="App">
             <button type="button" onClick={returnToMain}>Tagasi</button>
-            <h1>Siin algab modereerimiseks olevate küsimuste ala</h1>
+            <h1>Siin on üritused, kus oled moderaatoriks määratud</h1>
                 {moderatedRooms.map(moderatedRoom => (
                     <div id={moderatedRoom.id} value={moderatedRoom.id} key={moderatedRoom.id}>{moderatedRoom.name}<button onClick={() => enterModeration(moderatedRoom.id)}>Sisene</button></div>
                 ))}
@@ -49,34 +51,3 @@ export const ModeratorPage = () => {
     )
 }
 
-/* function enterModeration(roomCode) {
-    localStorage.setItem("roomCode", roomCode);
-    window.location = '/ModeratedEvent';
-}; */
-
-const enterModeration = (roomCode) => {
-    localStorage.setItem("roomCode", roomCode);
-    const questionDocRef = doc(db, "events", roomCode);
-    getDoc(questionDocRef)
-    .then(function (doc) {
-        if(doc.exists) {
-            if(doc.data().moderated) {
-                localStorage.setItem("statusCode", 1);
-                window.location="/ModeratedEvent";
-            } else {
-                localStorage.setItem("statusCode", 0);
-                window.location="/ModeratedEvent";
-            }
-        }
-    }
-    )        
-};
-
-function returnToMain() {
-    window.location = '/';
-}
-
-function signOut() {
-    localStorage.clear();
-    window.location.reload(false);
-}

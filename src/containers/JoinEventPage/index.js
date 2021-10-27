@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { onSnapshot, query, collection, where, orderBy, limit, addDoc, serverTimestamp, } from '@firebase/firestore';
 import db from "../../firebase";
+import { returnToLogin } from '../../actions/functions';
 /**
 * @author
 * @function JoinEventPage
@@ -10,11 +11,12 @@ var status;
 // eslint-disable-next-line
 if (statusCode == 1) {
     status = [2];
-// eslint-disable-next-line
-} else if(statusCode == 0){
+    // eslint-disable-next-line
+} else if (statusCode == 0) {
     status = [1, 2];
 }
 
+//Anonüümsele kasutajale üritusega ühinemisel kuvatav vaade, kus on võimalik küsimusi esitada
 export const JoinEventPage = () => {
     const roomCode = localStorage.getItem('roomCode');
     const [questions, setQuestions] = useState([]);
@@ -39,11 +41,11 @@ export const JoinEventPage = () => {
         const questionData = { question: question, status: 1, created: serverTimestamp() };
         await addDoc(questionsRef, questionData);
     };
-    if(questions[0] !== undefined) {
+    if (questions[0] !== undefined) {
         return (
             <div>
-                <div>Suud puhtaks!</div>  
-                <button type="button" onClick={returnToMain}>Tagasi</button>  
+                <div>Suud puhtaks!</div>
+                <button type="button" onClick={returnToLogin}>Tagasi</button>
                 <div clas="App">
                     {questions.map(question => (
                         <div id={question.id} value={question.id} key={question.id}>{question.question}</div>
@@ -62,23 +64,17 @@ export const JoinEventPage = () => {
     } else {
         return (
             <div>
-            <p>Hetkel küsimusi pole!</p>
-            <div>
-                        <form name="questionForm" onSubmit={questionSubmit}>
-                            <label>Küsimus
-                                <input type="text" name="question" />
-                            </label>
-                            <button type="submit">Esita</button>
-                        </form>
-                    </div>
-            <button type="button" onClick={returnToMain}>Tagasi</button>
+                <p>Hetkel küsimusi pole!</p>
+                <div>
+                    <form name="questionForm" onSubmit={questionSubmit}>
+                        <label>Küsimus
+                            <input type="text" name="question" />
+                        </label>
+                        <button type="submit">Esita</button>
+                    </form>
+                </div>
+                <button type="button" onClick={returnToLogin}>Tagasi</button>
             </div>
         )
     }
-
-
-}
-
-function returnToMain() {
-    window.location="/Login";
 }

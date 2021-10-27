@@ -2,11 +2,12 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import db from "../../firebase";
 import { onSnapshot, query, collection, where, orderBy } from '@firebase/firestore';
+import { returnToMain, statusName } from '../../actions/functions';
 /**
 * @author
 * @function Archive
 **/
-
+//Arhiivi leht, kus kuvatakse kõik konkreetse ürituse küsimused ja nende olek.
 export const Archive = () => {
     const [questions, setQuestions] = useState([]);
     const roomCode = localStorage.getItem("roomCode");
@@ -44,26 +45,4 @@ export const Archive = () => {
         </div>
 
     )
-}
-
-function returnToMain() {
-    window.location = '/';
-}
-
-function statusName(statusCode) {
-    if(statusCode == 1) {
-        return " -Esitatud";
-    }
-    else if(statusCode == 2) {
-        return " -Heaks kiidetud";
-    }
-    else if(statusCode == 3) {
-        return " -Pole heaks kiidetud";
-    }
-    else if(statusCode == 4) {
-        return " -Vastatud";
-    }
-    else if(statusCode == 5) {
-        return " -Hiljem vastamiseks";
-    }
 }
