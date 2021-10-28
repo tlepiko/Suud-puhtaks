@@ -9,4 +9,7 @@ Rakenduse testimiseks:
 6. firebase.js faili kirjutada firebase rakenduse konfiguratsiooni andmed.
 7. Terminalis rakendus käsuga 'npm start' rakendus tööle panna.
 
+Testimiseks saab kasutada confi, mis on leitav: 
+https://drive.google.com/file/d/13zuJ1pKDJwIo9IgoQ2IImDJ0gT89VXZv/view?usp=sharing
+
 Moderaatorina rakenduse käivitamiseks on vaja luua endale firebase projekt/rakendus.
