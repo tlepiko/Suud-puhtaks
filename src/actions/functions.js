@@ -38,6 +38,10 @@ export function questionApprove(questionId) {
 //funktsioon üritusega liitumiseks
 export function joinCode() {
     const roomCode = document.getElementById("roomCode").value;
+    if(!roomCode) {
+        window.alert("Sisesta kehtiv kood!")
+        window.location="/Login";
+    }
     localStorage.setItem("roomCode", roomCode);
     const questionDocRef = doc(db, "events", roomCode);
     getDoc(questionDocRef)
@@ -45,10 +49,10 @@ export function joinCode() {
         if(doc.exists) {
             if(doc.data().moderated) {
                 localStorage.setItem("statusCode", 1);
-                window.location="/Join"
+                window.location="/Join";
             } else if(!doc.data().moderated) {
                 localStorage.setItem("statusCode", 0);
-                window.location="/Join"
+                window.location="/Join";
             } else {
                 window.alert("Palun sisesta kehtiv ürituse kood!");
             }
