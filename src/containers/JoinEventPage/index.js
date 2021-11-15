@@ -45,7 +45,7 @@ export const JoinEventPage = () => {
         return (
             <div>
                 <div>Suud puhtaks!</div>
-                <button type="button" onClick={returnToLogin}>Tagasi</button>
+                <button className={"button"} type="button" onClick={returnToLogin}>Tagasi</button>
                 <div clas="App">
                     {questions.map(question => (
                         <div id={question.id} value={question.id} key={question.id}>{question.question}</div>
@@ -55,7 +55,7 @@ export const JoinEventPage = () => {
                             <label>Küsimus
                                 <input type="text" name="question" />
                             </label>
-                            <button type="submit">Saada</button>
+                            <button className={"button"} type="submit">Saada</button>
                         </form>
                     </div>
                 </div>
@@ -70,10 +70,10 @@ export const JoinEventPage = () => {
                         <label>Küsimus
                             <input type="text" name="question" />
                         </label>
-                        <button type="submit">Esita</button>
+                        <button className={"button"} type="submit">Esita</button>
                     </form>
                 </div>
-                <button type="button" onClick={returnToLogin}>Tagasi</button>
+                <button className={"button"} type="button" onClick={returnToLogin}>Tagasi</button>
             </div>
         )
     }

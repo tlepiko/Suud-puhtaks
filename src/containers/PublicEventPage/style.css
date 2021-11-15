@@ -1,0 +1,76 @@
+.error-message {
+    color:red;
+    background-color: #ccc;
+}
+.button {
+    background-color: #071e29;
+    color:white;
+    font-weight: bold;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    min-width: 100px;
+}
+.flexbox {
+    height: 100vh;
+}
+.v-margin {
+    margin: 20px 0 20px;
+}
+.flex-v {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+}
+.flex {
+    display: flex;
+    justify-content: center; 
+}
+.centered-text {
+    color:white;
+    text-align: center;
+}
+.back-button {
+    margin: 0 40px;
+    width: 25vw;
+}
+
+/*
+
+CSS küsimuste kuvamiseks
+Vajab konteinerit(.q-container) ja küsimust(.question)
+
+*/
+.question {
+    font-size: 28px;
+    padding: 10px 60px;
+    margin: 20px;
+    display: inline-block;
+    color: black;
+    text-align: justify;
+    text-justify: inter-word;
+}
+.question:before, .question:after {
+    font-size: 478%;
+    line-height: 1em;
+    position: absolute;
+    font-family: produkt web regular,Georgia,serif;
+}
+.question::before {
+    content: "“";
+    top: -0.0625em;
+    left: 0.25rem;
+    position: absolute;
+}
+.question::after {
+    content: "”";
+    right: 0.25rem;
+    position: absolute;
+}
+.q-container {
+  background-color: #ebebf2;
+  position: relative;
+  border-top: solid #159947 6px;
+  display: block;
+}

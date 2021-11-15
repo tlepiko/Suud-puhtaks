@@ -10,7 +10,7 @@ import './style.css';
 //Header rakendusele, hetkel pole kasutuses
 export const Header = () => {
     return (
-        <header className="header">
+        <header className="{header}">
                 <ul className="leftMenu">
                     <li><NavLink to={'/Login'}>Logi Sisse</NavLink></li>
                     <li><NavLink to={'/Join'}>Liitu üritusega</NavLink></li>

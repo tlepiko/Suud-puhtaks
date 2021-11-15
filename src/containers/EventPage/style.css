@@ -1,0 +1,48 @@
+.button {
+    background-color: #071e29;
+    color:white;
+    font-weight: bold;
+    border:none;
+    padding:10px;
+    border-radius: 5px;
+    display:inline-block;
+    min-width: 100px;
+}
+/*
+
+CSS küsimuste kuvamiseks
+Vajab konteinerit(.q-container) ja küsimust(.question)
+
+*/
+.question {
+    font-size: 28px;
+    padding: 10px 60px;
+    margin: 20px;
+    display: inline-block;
+    color: black;
+    text-align: justify;
+    text-justify: inter-word;
+}
+.question:before, .question:after {
+    font-size: 478%;
+    line-height: 1em;
+    position: absolute;
+    font-family: produkt web regular,Georgia,serif;
+}
+.question::before {
+    content: "“";
+    top: -0.0625em;
+    left: 0.25rem;
+    position: absolute;
+}
+.question::after {
+    content: "”";
+    right: 0.25rem;
+    position: absolute;
+}
+.q-container {
+  background-color: #ebebf2;
+  position: relative;
+  border-top: solid #159947 6px;
+  display: block;
+}

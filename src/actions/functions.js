@@ -108,10 +108,10 @@ export function ModeratorView() {
       [roomCode]
     );
     return (
-      <div clas="App">
+      <div class="App">
           {questions.map(question => (
-            <div id={question.id} value={question.id} key={question.id}>{question.question}<button onClick={() => questionApprove(question.id)}>Sobilik</button><button onClick={() => questionInappropriate(question.id)}>Mittesobilik</button></div>
-          ))}
+                    <div id={question.id} value={question.id} key={question.id}>{question.question}<button className={"button"} onClick={() => questionAnswer(question.id)}>Vastatud</button><button className={"button"} onClick={() => questionAnswerLater(question.id)}>Hiljem vastamiseks</button></div>
+        ))}
       </div>
     );
 };

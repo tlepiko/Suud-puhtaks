@@ -40,7 +40,7 @@ export const EventPage = () => {
             <div>
                 <h1>Siin algab vastamiseks olevate küsimuste ala</h1>
                 <p>Hetkel vastamiseks küsimusi pole</p>
-                <button type="button" onClick={returnToMain}>Tagasi</button>
+                <button className={"button"} type="button" onClick={returnToMain}>Tagasi</button>
                 <h1>Siin algab modereerimiseks olevate küsimuste ala</h1>
                 <ModeratorView />
             </div>
@@ -49,13 +49,13 @@ export const EventPage = () => {
     return (
         <div>
             <div>Suud puhtaks!</div>
-            <button type="button" onClick={returnToMain}>Tagasi</button>
+            <button className={"button"} type="button" onClick={returnToMain}>Tagasi</button>
 
 
-            <div clas="App">
+            <div class="App">
                 <h1>Siin algab vastamiseks olevate küsimuste ala</h1>
                 {questions.map(question => (
-                    <div id={question.id} value={question.id} key={question.id}>{question.question}<button onClick={() => questionAnswer(question.id)}>Vastatud</button><button onClick={() => questionAnswerLater(question.id)}>Hiljem vastamiseks</button></div>
+                    <div id={question.id} value={question.id} key={question.id}>{question.question}<button className={"button"} onClick={() => questionAnswer(question.id)}>Vastatud</button><button className={"button"} onClick={() => questionAnswerLater(question.id)}>Hiljem vastamiseks</button></div>
                 ))}
             </div>
             <div>

@@ -1,0 +1,86 @@
+/*
+Värvid:
+1. #061A23
+2. #06373A
+3. #1F5F5B
+4. #159947
+5. #49B265
+6. 
+
+*/
+* {
+    font-family: produkt web regular, Georgia,serif; 
+}
+body {
+    background-color: #06373A;
+}
+.error-message {
+    color:red;
+    background-color: #ccc;
+}
+.box {
+    background-color: #159947;
+    display: block;
+    height: 400px;
+    padding: 20px 50px;
+    border-radius: 15px;
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+.flex-2{
+    flex-grow: 1;
+}
+.content {
+    display: flex;
+    flex-direction: column;
+}
+.id1 {
+    margin:0px;
+}
+.centered-text {
+    color:white;
+    text-align: center;
+}
+.title {
+    display: block;
+    margin: 30px 0px 30px;
+}
+.v-margin {
+    margin: 20px 0 20px;
+}
+.flex-v {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+}
+.flex {
+    display: flex;
+    justify-content: center; 
+}
+.button {
+    background-color: #071e29;
+    color:white;
+    font-weight: bold;
+    border:none;
+    padding:10px;
+    border-radius: 5px;
+    display:inline-block;
+    min-width: 100px;
+}
+.login-button { 
+    width:100%;
+    height: 100%;
+    padding: 30px 0 30px;
+    font-size: larger;
+    transform: translate(0px, -10px);
+}
+.field {
+    border: none;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+/*
