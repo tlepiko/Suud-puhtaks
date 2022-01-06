@@ -154,6 +154,17 @@ export async function eventModeration(roomCode) {
 
 //funktsioon ürituse avaliku kuva jaoks
 export function eventDisplay(roomCode) {
+    const questionDocRef = doc(db, "events", roomCode);
+    getDoc(questionDocRef)
+    .then(function (doc) {
+        if(doc.exists) {
+            if(doc.data().moderated) {
+                localStorage.setItem("statusCode", 1);
+            } else if(!doc.data().moderated) {
+                localStorage.setItem("statusCode", 0);
+            }
+        }
+    })
     localStorage.setItem("roomCode", roomCode);
     window.location="/PublicEventPage";
 }

@@ -12,7 +12,7 @@ const array121 = [1, 2, 3, 4, 5];
 export const Archive = () => {
     const [questions, setQuestions] = useState([]);
     const roomCode = localStorage.getItem("roomCode");
-    var html = document.querySelector("table").outerHTML;
+    var html = document.querySelector("table");
     useEffect(
         () =>
             onSnapshot(query(

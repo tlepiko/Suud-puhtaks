@@ -6,17 +6,25 @@ import { returnToMain } from '../../actions/functions';
 * @author
 * @function PublicEventPage
 **/
+var statusCode = localStorage.getItem("statusCode");
+var status;
+// eslint-disable-next-line
+if (statusCode == 1) {
+    status = [2];
+    // eslint-disable-next-line
+} else if (statusCode == 0) {
+    status = [1, 2];
+}
 
 export const PublicEventPage = () => {
     const roomName = localStorage.getItem('roomCode');
     const [questions, setQuestions] = useState([]);
-    console.log(questions);
     useEffect(
         () =>
             onSnapshot(query(
                 collection(db, "events", roomName, "questions"),
                 //erinevad status olekud: 1. posed, 2. readyforanswer, 3. unsuitable, 4. answered, 5. answerlater
-                where("status", "==", 2),
+                where("status", "in", status),
                 orderBy("created", "asc"),
                 limit(1)),
                 (snapshot) =>
