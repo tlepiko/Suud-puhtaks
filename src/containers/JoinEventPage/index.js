@@ -46,18 +46,18 @@ export const JoinEventPage = () => {
             <div>
                 <div>Suud puhtaks!</div>
                 <button type="button" onClick={returnToLogin}>Tagasi</button>
-                <div clas="App">
+                <div className="questionDisplay2">
                     {questions.map(question => (
                         <div id={question.id} value={question.id} key={question.id}>{question.question}</div>
                     ))}
-                    <div>
-                        <form name="questionForm" onSubmit={questionSubmit}>
-                            <label>Küsimus
-                                <input type="text" name="question" />
-                            </label>
-                            <button type="submit">Saada</button>
-                        </form>
-                    </div>
+                </div>
+                <div className="questionSubmit">
+                    <form name="questionForm" onSubmit={questionSubmit}>
+                        <label>Küsimus
+                            <input type="text" name="question" />
+                        </label>
+                        <button type="submit">Saada</button>
+                    </form>
                 </div>
             </div>
         )

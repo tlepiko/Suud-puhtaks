@@ -14,6 +14,8 @@ if (statusCode == 1) {
     // eslint-disable-next-line
 } else if (statusCode == 0) {
     status = [1, 2];
+} else {
+    status = [2];
 }
 
 export const PublicEventPage = () => {
@@ -35,10 +37,10 @@ export const PublicEventPage = () => {
 
     if(questions[0] !== undefined) {
         return (
-            <div>
+            <div >
                 <div>Suud puhtaks!</div>
                 <button type="button" onClick={returnToMain}>Tagasi</button>    
-                <div clas="App">
+                <div className="questionDisplay">
                     {questions.map(question => (
                         <div id={question.id} value={question.id} key={question.id}>{question.question}</div>
                     ))}
@@ -47,7 +49,7 @@ export const PublicEventPage = () => {
         )
     } else {
         return (
-            <div>
+            <div className="mainPage">
             <p>Hetkel küsimusi pole!</p>
             </div>
         )

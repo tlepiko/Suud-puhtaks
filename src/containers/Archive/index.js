@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import db from "../../firebase";
 import { onSnapshot, query, collection, where, orderBy } from '@firebase/firestore';
-import { returnToMain, statusName, htmlToCSV } from '../../actions/functions';
+import { questionStats, returnToMain, statusName, htmlToCSV } from '../../actions/functions';
 const array121 = [1, 2, 3, 4, 5];
 /**
 * @author
@@ -28,8 +28,8 @@ export const Archive = () => {
     if (questions.length < 1) {
         return (
             <div>
-                <h1>Siia ilmuvad kõik küsimused</h1>
-                <p>Hetkel küsimusi pole</p>
+                <h1>Siia ilmuvad kõik üritusel esitatud küsimused esitamise järjekorras</h1>
+                <p>Hetkel ürituses küsimusi pole</p>
                 <button type="button" onClick={returnToMain}>Tagasi</button>
             </div>
         )
@@ -39,8 +39,11 @@ export const Archive = () => {
             <div>Suud puhtaks!</div>
             <button type="button" onClick={returnToMain}>Tagasi</button>
             <div clas="App">
-                <h1>Siia ilmuvad kõik küsimused</h1>
+                <h1>Siia ilmuvad kõik üritusel esitatud küsimused esitamise järjekorras</h1>
+                <p>{questionStats(questions)}</p>
+                <button onClick={() => htmlToCSV(html, "kysimused.csv")}>Lae tabel alla!</button>
                 <table>
+                <tbody>
                     <tr>
                         <th>Küsimus</th>
                         <th>Staatus</th>
@@ -49,8 +52,8 @@ export const Archive = () => {
                 {questions.map(question => (
                     <tr id={question.id} value={question.id} key={question.id}><td>{question.question}</td><td>{statusName(question.status)}</td></tr>
                 ))}
+                </tbody>
                 </table>
-                <button onClick={() => htmlToCSV(html, "kysimused.csv")}>Lae alla!</button>
             </div>
         </div>
     )

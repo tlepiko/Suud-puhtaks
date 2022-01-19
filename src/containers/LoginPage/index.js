@@ -21,15 +21,15 @@ export const LoginPage = () => {
         return <Redirect to="/" />
     } else {
         return (
-            <div>
-                <div>Suud puhtaks!</div>
+            <div className="mainPage">
+                <h1>Suud puhtaks!</h1>
                     <div>
-                            <div>
-                                <button onClick={userLogin}>Logi sisse</button>
-                            </div>
                             <div>
                                 Sisesta ruumi kood:<input id="roomCode"></input>
                                 <button type="button" onClick={joinCode}>Liitu üritusega</button>
+                            </div>
+                            <div className="loginBtn">
+                                <button onClick={userLogin}>Logi sisse</button>
                             </div>
                     </div>
             </div>

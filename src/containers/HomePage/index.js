@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import db from "../../firebase";
-import { eventDisplay, eventRemove, displayArchive, assignModerator, eventModeration, createRoom, signOut, eventEnter } from '../../actions/functions';
+import { showModerator, formatList, eventDisplay, eventRemove, displayArchive, assignModerator, eventModeration, createRoom, signOut, eventEnter } from '../../actions/functions';
 import { onSnapshot, query, collection, where, orderBy, limit } from '@firebase/firestore';
 /**
 * @author
@@ -25,28 +25,38 @@ export const HomePage = () => {
             ),
         [user]
     );
+    formatList();
     return (
         <div>
             <div>Suud puhtaks!</div>
             <div><button type="submit" onClick={() => signOut()}>Logi välja</button></div>
             <a href="/ModeratorPage">Vaata üritusi, kus oled määratud moderaatoriks</a>
-            <div clas="App">
-                <h1>Sinu loodud üritused</h1>
+            <div className="App">
+                <h1>Sinu üritused</h1>
+                <div className="createEvent">
+                    Ürituse nimi:
+                    <input type="text" id="roomName" />
+                    <button type="submit" onClick={() => createRoom()}>Loo uus üritus</button>
+                </div>
                 {events.map(event => (
-                    <div id={event.id} value={event.id} key={event.id}>{event.name}<button onClick={() => eventEnter(event.id)}>Sisene</button>
-                    <button onClick={() => eventDisplay(event.id)}>Avalik vaade</button>
-                    <button onClick={() => eventRemove(event.id)}>Kustuta üritus</button>
-                    <button onClick={() => window.alert("Selle ruumi kood on: " + event.id)}>Hangi kood</button>
-                    <button onClick={() => displayArchive(event.id)}>Arhiiv</button>
-                    <button onClick={() => assignModerator(event.id)}>Määra moderaator</button>
-                    <label>Moderatsioon sisse/välja:</label><input type="checkbox" checked={event.moderated} onChange={() => eventModeration(event.id)}></input></div>
+
+                    <div id={event.id} value={event.id} key={event.id} onClick={() => formatList()}>
+
+                        <button id={event.id} value={event.id} key={event.id} type="button" className="collapsible">{event.name}</button>
+                        <div className="content">
+                            <button onClick={() => eventEnter(event.id)}>Sisene</button>
+                            <button onClick={() => eventDisplay(event.id)}>Avalik vaade</button>
+                            <button onClick={() => eventRemove(event.id)}>Kustuta üritus</button>
+                            <button onClick={() => window.alert("Selle ruumi kood on: " + event.id)}>Hangi kood</button>
+                            <button onClick={() => displayArchive(event.id)}>Arhiiv</button>
+                            <button onClick={() => assignModerator(event.id)}>Määra moderaator</button>
+                            <button id={"moderationBtn"+event.id} onClick={() => eventModeration(event.id)}>Moderatsioon</button>
+                            <p>Moderaator:</p>{showModerator(event.moderator)}
+                        </div>
+                    </div>
                 ))}
             </div>
-            <div>
-                Ürituse nimi:
-                <input type="text" id="roomName" />
-                <button type="submit" onClick={() => createRoom()}>Loo üritus</button></div>
-        </div>
 
+        </div>
     )
 }

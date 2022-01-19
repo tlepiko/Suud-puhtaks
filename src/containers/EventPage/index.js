@@ -21,7 +21,6 @@ if (statusCode == 1) {
 export const EventPage = () => {
     const [questions, setQuestions] = useState([]);
     const roomCode = localStorage.getItem("roomCode");
-    console.log(roomCode);
     useEffect(
         () =>
             onSnapshot(query(
@@ -53,13 +52,16 @@ export const EventPage = () => {
 
 
             <div clas="App">
-                <h1>Siin algab vastamiseks olevate küsimuste ala</h1>
+                <h1>Vastamiseks küsimused</h1>
                 {questions.map(question => (
-                    <div id={question.id} value={question.id} key={question.id}>{question.question}<button onClick={() => questionAnswer(question.id)}>Vastatud</button><button onClick={() => questionAnswerLater(question.id)}>Hiljem vastamiseks</button></div>
+                    <div id={question.id} value={question.id} key={question.id}>
+                        {question.question}<br></br>
+                        <button onClick={() => questionAnswer(question.id)}>Vastatud</button>
+                        <button onClick={() => questionAnswerLater(question.id)}>Hiljem vastamiseks</button></div>
                 ))}
             </div>
             <div>
-                <h1>Siin algab modereerimiseks olevate küsimuste ala</h1>
+                <h1>Modereeritavad küsimused</h1>
                 <ModeratorView />
             </div>
         </div>

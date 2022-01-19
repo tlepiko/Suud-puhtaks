@@ -8,7 +8,6 @@ export const signInWithGoogle = () => {
     return async () => {
         signInWithPopup(auth, provider)
             .then((result) => {
-                console.log(result.user.displayName + " logis just sisse!");
                 const loggedIn = result.user.uid;
                 const email = result.user.email;
                 localStorage.setItem('user', loggedIn);
