@@ -284,6 +284,7 @@ export function downloadCSVFile(csv, filename) {
     download_link.click();
 }
 
+//Funktsioon "volditava" menüü jaoks ürituste nimekirjas.
 export function formatList() {
     var coll = document.getElementsByClassName("collapsible");
     var i;
@@ -301,6 +302,7 @@ export function formatList() {
     }
 }
 
+//Funktsioon moderaatori näitamiseks ürituste nimekirjas.
 export function showModerator(moderator) {
     if (moderator == null) {
         return "Moderaator pole määratud."
@@ -309,6 +311,7 @@ export function showModerator(moderator) {
     }
 }
 
+//Funktsioon statistika kuvamiseks arhiivis
 export function questionStats(qCount) {
     var esitatud = 0;
     var heaksKiidetud = 0;
@@ -329,4 +332,13 @@ export function questionStats(qCount) {
         }
     }
     return ("Kokku küsimusi: " + qCount.length + " Esitatud küsimusi: " + esitatud + " Heaks kiidetud: " + heaksKiidetud + " Sobimatuid: " + poleHeaksKiidetud + " Vastatud: " + vastatud + " Hiljem vastamiseks: " + hiljemVastamiseks);
+}
+
+//Funktsioon moderatsiooni nupu värvi muutmiseks vastavalt moderatsiooni olekule: punane - välja lülitatud, roheline - sisse lülitatud
+export function moderationBtn(event) {
+    if(event.moderated === true) {
+        return (<button id={"moderationBtn"+event.id} style={{backgroundColor : "red"}}onClick={() => eventModeration(event.id)}>Moderatsioon</button>);
+    } else if(event.moderated === false) {        
+        return (<button id={"moderationBtn"+event.id} style={{backgroundColor : "green"}}onClick={() => eventModeration(event.id)}>Moderatsioon</button>);
+    }
 }

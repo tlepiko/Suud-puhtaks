@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import db from "../../firebase";
-import { showModerator, formatList, eventDisplay, eventRemove, displayArchive, assignModerator, eventModeration, createRoom, signOut, eventEnter } from '../../actions/functions';
+import { moderationBtn, showModerator, formatList, eventDisplay, eventRemove, displayArchive, assignModerator, createRoom, signOut, eventEnter } from '../../actions/functions';
 import { onSnapshot, query, collection, where, orderBy, limit } from '@firebase/firestore';
 /**
 * @author
@@ -50,7 +50,8 @@ export const HomePage = () => {
                             <button onClick={() => window.alert("Selle ruumi kood on: " + event.id)}>Hangi kood</button>
                             <button onClick={() => displayArchive(event.id)}>Arhiiv</button>
                             <button onClick={() => assignModerator(event.id)}>Määra moderaator</button>
-                            <button id={"moderationBtn"+event.id} onClick={() => eventModeration(event.id)}>Moderatsioon</button>
+                            {moderationBtn(event)}
+                            {/* <button id={"moderationBtn"+event.id} onClick={() => eventModeration(event.id)}>Moderatsioon</button> */}
                             <p>Moderaator:</p>{showModerator(event.moderator)}
                         </div>
                     </div>
