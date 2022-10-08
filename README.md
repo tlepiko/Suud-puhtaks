@@ -8,6 +8,3 @@ Rakenduse testimiseks:
 5. firebase.js.sample faililt eemaldada järelliide .sample.
 6. firebase.js faili kirjutada firebase rakenduse konfiguratsiooni andmed.
 7. Terminalis rakendus käsuga 'npm start' rakendus tööle panna.
-
-Demo:
-https://clever-cori-752abd.netlify.app/
